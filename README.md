@@ -1,49 +1,38 @@
----
-name: summarize
-description: Summarize URLs or files with the summarize CLI (web, PDFs, images, audio, YouTube).
-homepage: https://summarize.sh
-metadata: {"clawdbot":{"emoji":"🧾","requires":{"bins":["summarize"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/summarize","bins":["summarize"],"label":"Install summarize (brew)"}]}}
----
+# summarize — One CLI to summarize anything
 
-# Summarize
+> Summarize any URL, local file, PDF, image, audio, or YouTube video from the command line. Powered by your choice of AI provider — just set the API key and go.
 
-Fast CLI to summarize URLs, local files, and YouTube links.
+[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blueviolet)](https://github.com/NachaFromMars)
 
-## Quick start
+## Overview
+summarize wraps the `summarize` CLI to distill content from URLs, files, PDFs, images, audio recordings, and YouTube videos. Pick your AI provider by setting the corresponding API key; the default model is `google/gemini-3-flash-preview`. Output length is configurable from short to xxl or a specific character count.
 
+## Features
+- **Content types** — URLs, local files, PDFs, images, audio, YouTube videos
+- **Providers** — OpenAI, Anthropic, xAI, Google (set the matching API key)
+- **Length control** — `--length short|medium|long|xl|xxl|<chars>`
+- **YouTube mode** — `--youtube auto` for direct video summarization
+
+## Usage / Quick Start
 ```bash
+brew install steipete/tap/summarize
+
+# Summarize a URL
 summarize "https://example.com" --model google/gemini-3-flash-preview
-summarize "/path/to/file.pdf" --model google/gemini-3-flash-preview
-summarize "https://youtu.be/dQw4w9WgXcQ" --youtube auto
+
+# Summarize a PDF
+summarize "/path/to/file.pdf"
+
+# Summarize a YouTube video
+summarize "https://youtu.be/VIDEO_ID" --youtube auto
+
+# Control length
+summarize "https://example.com" --length short
 ```
+Set one API key: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `XAI_API_KEY`, or `GEMINI_API_KEY`
 
-## Model + keys
+## Trigger Keywords (OpenClaw)
+summarize URL, summarize PDF, summarize video, YouTube summary, file summary, summarize article
 
-Set the API key for your chosen provider:
-- OpenAI: `OPENAI_API_KEY`
-- Anthropic: `ANTHROPIC_API_KEY`
-- xAI: `XAI_API_KEY`
-- Google: `GEMINI_API_KEY` (aliases: `GOOGLE_GENERATIVE_AI_API_KEY`, `GOOGLE_API_KEY`)
-
-Default model is `google/gemini-3-flash-preview` if none is set.
-
-## Useful flags
-
-- `--length short|medium|long|xl|xxl|<chars>`
-- `--max-output-tokens <count>`
-- `--extract-only` (URLs only)
-- `--json` (machine readable)
-- `--firecrawl auto|off|always` (fallback extraction)
-- `--youtube auto` (Apify fallback if `APIFY_API_TOKEN` set)
-
-## Config
-
-Optional config file: `~/.summarize/config.json`
-
-```json
-{ "model": "openai/gpt-5.2" }
-```
-
-Optional services:
-- `FIRECRAWL_API_KEY` for blocked sites
-- `APIFY_API_TOKEN` for YouTube fallback
+---
+Part of the [NachaFromMars](https://github.com/NachaFromMars) OpenClaw skill ecosystem.
